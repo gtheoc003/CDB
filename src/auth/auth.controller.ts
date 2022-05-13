@@ -6,6 +6,7 @@ import {
   Post,
   Delete,
   Param,
+  Put,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Auth } from './auth.entity';
@@ -24,13 +25,18 @@ export class AuthController {
     return await this.authService.create(auth);
   }
 
-  @Get(':Id')
-  async findOne(@Param('Id') Id: number): Promise<Auth> {
-    return await this.authService.findOne(Id);
+  @Get(':id')
+  async findOne(@Param('id') id: number): Promise<Auth> {
+    return await this.authService.findOne(id);
   }
 
-  @Delete(':deleteOne')
-  async deleteOne(@Param() deleteOne: number): Promise<any> {
-    return await this.authService.deleteOne(deleteOne);
+  @Put(':id')
+  async updateOne(@Param('id') id: number, @Body() auth: Auth): Promise<any> {
+    return await this.authService.updateOne(Number(id), auth);
+  }
+
+  @Delete(':id')
+  async deleteOne(@Param('id') id: number): Promise<any> {
+    return await this.authService.deleteOne(id);
   }
 }

@@ -29,8 +29,8 @@ export class AuthService {
     return await this.authRepository.save(auth);
   }
 
-  async updateOne(auth_id: number): Promise<any> {
-    return await this.authRepository.update(auth_id, auth );
+  async updateOne(auth_id: number, auth: Auth): Promise<any> {
+    return await this.authRepository.update(auth_id, auth);
   }
 
   async deleteOne(auth_id: number): Promise<any> {
