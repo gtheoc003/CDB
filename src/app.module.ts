@@ -5,7 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
-import { Cocktail } from './cocktail/entities/cocktail.entity';
+import { Cocktail } from './cocktail/cocktail.entity';
 import { CocktailModule } from './cocktail/cocktail.module';
 import { Auth } from './auth/auth.entity';
 import { AuthModule } from './auth/auth.module';

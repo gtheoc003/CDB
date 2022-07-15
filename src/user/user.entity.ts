@@ -1,5 +1,5 @@
 import { Auth } from 'src/auth/auth.entity';
-import { Cocktail } from 'src/cocktail/entities/cocktail.entity';
+import { Cocktail } from 'src/cocktail/cocktail.entity';
 import {
   Column,
   Entity,
@@ -22,7 +22,7 @@ export class User {
 
   @Column({ type: 'date', name: 'created_at' })
   dateTime: Date;
-
+  //one user can only be connected to one auth
   @OneToOne(type => Auth, {
     nullable: false,
     cascade: true,
