@@ -1,13 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-//import { User } from 'src/user/user.entity';
-import {
-  InsertValuesMissingError,
-  Repository,
-  DeleteResult,
-  FindConditions,
-  ObjectID,
-} from 'typeorm';
+import { Repository } from 'typeorm';
 import { Auth } from './auth.entity';
 
 @Injectable()
