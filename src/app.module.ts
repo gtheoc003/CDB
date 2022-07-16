@@ -6,7 +6,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
 import { Cocktail } from './cocktail/cocktail.entity';
-import { CocktailModule } from './cocktail/cocktail.module';
+//import { CocktailModule } from './cocktail/cocktail.module';
 import { Auth } from './auth/auth.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserStatusModule } from './user-status/user-status.module';
@@ -29,7 +29,7 @@ import { UserStatusModule } from './user-status/user-status.module';
     }),
     AuthModule,
     UserModule,
-    CocktailModule,
+    //CocktailModule,
     UserStatusModule,
   ],
   controllers: [AppController],

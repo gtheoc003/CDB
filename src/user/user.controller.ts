@@ -23,10 +23,10 @@ export class UserController {
     return await this.userService.create(user);
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: number): Promise<User> {
-    return await this.userService.findOne(id);
-  }
+  //@Get(':id')
+  //async findOne(@Param('id') id: number): Promise<User> {
+  //  return await this.userService.findOne(id);
+  //}
 
   @Put(':id')
   async updateOne(@Param('id') id: number, @Body() user: User): Promise<any> {
