@@ -10,33 +10,34 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Auth } from './auth.entity';
+import { from, Observable } from 'rxjs';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Get()
-  async findAll(): Promise<Auth[]> {
-    return await this.authService.findAll();
+  findAll(): Observable<Auth[]> {
+    return from(this.authService.findAll());
   }
 
   @Post()
-  async create(@Body() auth: Auth): Promise<Auth> {
-    return await this.authService.create(auth);
+  create(@Body() auth: Auth): Observable<Auth> {
+    return from(this.authService.create(auth));
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<Auth> {
-    return await this.authService.findOne(id);
+  findOne(@Param('id') id: number): Observable<Auth> {
+    return from(this.authService.findOne(id));
   }
 
   @Put(':id')
-  async updateOne(@Param('id') id: number, @Body() auth: Auth): Promise<any> {
-    return await this.authService.updateOne(Number(id), auth);
+  updateOne(@Param('id') id: number, @Body() auth: Auth): Observable<any> {
+    return from(this.authService.updateOne(Number(id), auth));
   }
 
   @Delete(':id')
-  async deleteOne(@Param('id') id: number): Promise<any> {
-    return await this.authService.deleteOne(id);
+  deleteOne(@Param('id') id: number): Observable<any> {
+    return from(this.authService.deleteOne(id));
   }
 }

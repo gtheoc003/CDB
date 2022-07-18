@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Auth } from './auth.entity';
+import { Observable, from } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -10,23 +11,23 @@ export class AuthService {
     private authRepository: Repository<Auth>,
   ) {}
 
-  async findAll(): Promise<Auth[]> {
-    return await this.authRepository.find();
+  findAll(): Observable<Auth[]> {
+    return from(this.authRepository.find());
   }
 
-  async findOne(Id: number): Promise<Auth> {
-    return await this.authRepository.findOne({ where: { auth_id: Id } });
+  findOne(Id: number): Observable<Auth> {
+    return from(this.authRepository.findOne({ where: { auth_id: Id } }));
   }
 
-  async create(auth: Auth): Promise<Auth> {
-    return await this.authRepository.save(auth);
+  create(auth: Auth): Observable<Auth> {
+    return from(this.authRepository.save(auth));
   }
 
-  async updateOne(auth_id: number, auth: Auth): Promise<any> {
-    return await this.authRepository.update(auth_id, auth);
+  updateOne(auth_id: number, auth: Auth): Observable<any> {
+    return from(this.authRepository.update(auth_id, auth));
   }
 
-  async deleteOne(auth_id: number): Promise<any> {
-    return await this.authRepository.delete(auth_id);
+  deleteOne(auth_id: number): Observable<any> {
+    return from(this.authRepository.delete(auth_id));
   }
 }
