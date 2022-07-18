@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { from, Observable } from 'rxjs';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 
@@ -10,23 +11,23 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.find();
+  findAll(): Observable<User[]> {
+    return from(this.userRepository.find());
   }
 
-  //async findOne(Id: number): Promise<User> {
-  //  return await this.userRepository.findOne({ where: { user_id: Id } });
+  //findOne(Id: number): Observable<User> {
+  //  return from(this.userRepository.findOne({ where: { user_id: Id } }));
   //}
 
-  async create(user: User): Promise<User> {
-    return await this.userRepository.save(user);
+  create(user: User): Observable<User> {
+    return from(this.userRepository.save(user));
   }
 
-  async updateOne(user_id: number, user: User): Promise<any> {
-    return await this.userRepository.update(user_id, user);
+  updateOne(user_id: number, user: User): Observable<any> {
+    return from(this.userRepository.update(user_id, user));
   }
 
-  async deleteOne(user_id: number): Promise<any> {
-    return await this.userRepository.delete(user_id);
+  deleteOne(user_id: number): Observable<any> {
+    return from(this.userRepository.delete(user_id));
   }
 }

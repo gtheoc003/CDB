@@ -8,33 +8,34 @@ import { Body,
   Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
+import { from, Observable } from 'rxjs';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Get()
-  async findAll(): Promise<User[]> {
-    return await this.userService.findAll();
+  findAll(): Observable<User[]> {
+    return from(this.userService.findAll());
   }
 
   @Post()
-  async create(@Body() user: User): Promise<User> {
-    return await this.userService.create(user);
+  create(@Body() user: User): Observable<User> {
+    return from(this.userService.create(user));
   }
 
   //@Get(':id')
-  //async findOne(@Param('id') id: number): Promise<User> {
-  //  return await this.userService.findOne(id);
+  //findOne(@Param('id') id: number): Observable<User> {
+  //  return from(this.userService.findOne(id));
   //}
 
   @Put(':id')
-  async updateOne(@Param('id') id: number, @Body() user: User): Promise<any> {
-    return await this.userService.updateOne(Number(id), user);
+  updateOne(@Param('id') id: number, @Body() user: User): Observable<any> {
+    return from(this.userService.updateOne(Number(id), user));
   }
 
   @Delete(':id')
-  async deleteOne(@Param('id') id: number): Promise<any> {
-    return await this.userService.deleteOne(id);
+  deleteOne(@Param('id') id: number): Observable<any> {
+    return from(this.userService.deleteOne(id));
   }
 }
