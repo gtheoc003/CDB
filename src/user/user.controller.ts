@@ -1,37 +1,52 @@
-import { Body,
-  Controller,
-  Get,
-  Query,
-  Post,
-  Delete,
-  Param,
-  Put } from '@nestjs/common';
+import { Body, HttpCode, Controller, Get, Post, Delete, Param, Put, UseGuards } from '@nestjs/common';
+import { CreateUserDto } from './models/dto/CreateUser.dto';
+import { LoginUserDto } from './models/dto/LoginUser.dto';
 import { UserService } from './user.service';
-import { User } from './user.entity';
+import { UserI } from './models/user.interface';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Get()
-  findAll(): Observable<User[]> {
-    return from(this.userService.findAll());
+  // Rest Call: POST http://localhost:3000/users'/
+  @Post('create')
+  create(@Body() createdUserDto: CreateUserDto): Observable<UserI> {
+    return this.userService.create(createdUserDto);
   }
 
-  @Post()
-  create(@Body() user: User): Observable<User> {
-    return from(this.userService.create(user));
+  // Rest Call: POST http://localhost:3000/user/login
+  @Post('login')
+  @HttpCode(200)
+  login(@Body() loginUserDto: LoginUserDto): Observable<Object> {
+    return this.userService.login(loginUserDto).pipe(
+      map((jwt: string) => {
+        return {
+          access_token: jwt,
+          token_type: 'JWT',
+          expires_in: 10000,
+        }
+      })
+    );
   }
 
-  //@Get(':id')
-  //findOne(@Param('id') id: number): Observable<User> {
-  //  return from(this.userService.findOne(id));
-  //}
+  @Get(':id')
+  findOne(@Param('id') id: number): Observable<UserI> {
+    return from(this.userService.findOne(id));
+  }
 
   @Put(':id')
-  updateOne(@Param('id') id: number, @Body() user: User): Observable<any> {
+  // eslint-disable-next-line prettier/prettier
+  updateOne(@Param('id') id: number, @Body() user: UserI): Observable<UserI> {
     return from(this.userService.updateOne(Number(id), user));
+  }
+
+  @UseGuards(JwtAuthGuard) //checking if there is a valid jwt in our request
+  @Get()
+  findAll(): Observable<UserI[]> {
+    return from(this.userService.findAll());
   }
 
   @Delete(':id')

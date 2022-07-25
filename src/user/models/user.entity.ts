@@ -1,0 +1,62 @@
+import { Cocktail } from 'src/cocktail/cocktail.entity';
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToOne, OneToMany, JoinColumn, PrimaryGeneratedColumn,
+} from 'typeorm';
+
+@Entity('user')
+export class UserEntity {
+  @PrimaryGeneratedColumn({ type: 'int', name: 'user_id' })
+  id: number;
+
+  @Column('varchar', { length: 155, name: 'first_name' })
+  firstName: string;
+
+  @Column('varchar', { length: 155, name: 'last_name' })
+  lastName: string;
+
+  @Column('varchar', { unique: true, length: 155, name: 'email' })
+  email: string;
+
+  @Column('varchar', { select: false, length: 155, name: 'password' })
+  password: string;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  emailToLowerCase() {
+    this.email = this.email.toLowerCase();
+  }
+// //@Column({ type: 'date', name: 'created_at' })
+  //dateTime: Date;
+  
+  //one user can only be connected to one auth
+  //@OneToOne(type => AuthEntity, {
+  //  nullable: false,
+  //  cascade: true,
+  //  onDelete: 'CASCADE',
+  //})
+  //@JoinColumn({ name: 'auth_auth_id' })
+  //auth: AuthEntity;
+  ////FOREIGN KEY COLUMN 'auth_id'
+  //@Column('int', { name: 'auth_id' })
+  //authId: number;
+
+  //@OneToMany(() => Cocktail, (cocktail) => cocktail.user, {
+  //  cascade: true,
+  //})
+  //cocktail: Cocktail[];
+  ////@JoinColumn({ name: 'user_user_id' })
+  ////cocktail: Cocktail;
+  //////FOREIGN KEY COLUMN 'user_id'
+  ////@Column('int', { name: 'user_id' })
+  ////userId: number;
+////
+  ////@OneToOne((type) => Userstatus, {
+  ////  nullable: false,
+  ////  cascade: true,
+  ////  onDelete: 'CASCADE',
+  ////})
+  ////@JoinColumn({ name: 'status' })
+  ////status: number;
+  //////FOREIGN KEY COLUMN 'userStatus_id'
+  ////@Column('int', { name: 'userStatus_id' })
+  ////userStatusId: number;
+}

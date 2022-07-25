@@ -21,37 +21,47 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This repository is about a CRUD application implementing Jwt Authorization with NestJs and TypeOrm.  
+
+## Configuration 
+
+The services are configured via a '.env' file, which is gitignored.
 
 ## Installation
 
-```bash
-$ npm install
+1. Clone the repo
+
+```sh
+git clone https://github.com/gtheoc003/CDB.git
 ```
+
+2. Install NPM packages
+
+```sh
+npm install
+```
+
+3. Configure the app
+
+The app requires a mysql database instance to connect with the existing schema 'cdb_v2'
+Create a `.env` file, based on the template provided.
+
+4. _[Optional]_ Populate the database with example data
+
+You can execute the SQL text file 'testData' to populate the user table
 
 ## Running the app
 
 ```bash
-# development
-$ npm run start
-
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
+#Documentation:
+You can find a postman collection in the folder 'postman-collection'. Import it and execute it against the api
+following the instructions bellow.
+
+-- POST http:/localhost:3000/user/create -> creates a user by passing full name, email and password ({"firstName": "your_first_name", "lastName": "your_last_name", "email": "your_email", "password": "your_password"})
+-- POST http:/localhost:3000/user/login -> logging in using your credentials generates a Jwt access token
+-- GET http:/localhost:3000/user/ -> get all the info for the user entity except the password by using the Jwt access token as a bearer token in Authorization
+
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

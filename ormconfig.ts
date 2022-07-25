@@ -1,5 +1,6 @@
 import 'dotenv/config';
 
+//Configuration Service
 export default {
   type: process.env.CDB_TYPE,
   driver: process.env.CDB_DRIVER,
@@ -8,4 +9,5 @@ export default {
   user: process.env.CDB_USER,
   password: process.env.CDB_PASSWORD,
   schema: process.env.CDB_SCHEMA,
+  jwt_secret: process.env.JWT_SECRET,
 };
