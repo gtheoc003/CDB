@@ -2,10 +2,13 @@ import { Body, HttpCode, Controller, Get, Post, Delete, Param, Put, UseGuards } 
 import { CreateUserDto } from './models/dto/CreateUser.dto';
 import { LoginUserDto } from './models/dto/LoginUser.dto';
 import { UserService } from './user.service';
-import { UserI } from './models/user.interface';
+import { UserI, UserRole } from './models/user.interface';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { UserIsUserGuard } from 'src/auth/guards/UserIsUser';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { hasRoles } from 'src/auth/decorators/roles.decorator';
 
 @Controller('user')
 export class UserController {
@@ -32,15 +35,24 @@ export class UserController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: number): Observable<UserI> {
     return from(this.userService.findOne(id));
   }
 
+  @UseGuards(JwtAuthGuard, UserIsUserGuard)
   @Put(':id')
-  // eslint-disable-next-line prettier/prettier
   updateOne(@Param('id') id: number, @Body() user: UserI): Observable<UserI> {
     return from(this.userService.updateOne(Number(id), user));
+  }
+
+  @hasRoles(UserRole.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Put(':id/role')
+  // eslint-disable-next-line prettier/prettier
+  updateRoleOfUser(@Param('id') id: number, @Body() user: UserI): Observable<UserI> {
+    return this.userService.updateRoleOfUser(Number(id), user);
   }
 
   @UseGuards(JwtAuthGuard) //checking if there is a valid jwt in our request
@@ -49,6 +61,8 @@ export class UserController {
     return from(this.userService.findAll());
   }
 
+  @hasRoles(UserRole.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':id')
   deleteOne(@Param('id') id: number): Observable<any> {
     return from(this.userService.deleteOne(id));
