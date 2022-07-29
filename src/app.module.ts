@@ -7,9 +7,8 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { UserEntity } from './user/models/user.entity';
 import { Cocktail } from './cocktail/cocktail.entity';
-//import { CocktailModule } from './cocktail/cocktail.module';
+import { CocktailModule } from './cocktail/cocktail.module';
 import { AuthModule } from './auth/auth.module';
-import { UserStatusModule } from './user-status/user-status.module';
 
 @Module({
   imports: [
@@ -30,8 +29,7 @@ import { UserStatusModule } from './user-status/user-status.module';
     }),
     AuthModule,
     UserModule,
-    //CocktailModule,
-    UserStatusModule,
+    CocktailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

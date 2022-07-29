@@ -29,16 +29,6 @@ export class UserEntity {
     this.email = this.email.toLowerCase();
   }
 
-  //@OneToMany(() => Cocktail, (cocktail) => cocktail.user, {
-  //  cascade: true,
-  //})
-  //cocktail: Cocktail[];
-  ////@JoinColumn({ name: 'user_user_id' })
-  ////cocktail: Cocktail;
-  //////FOREIGN KEY COLUMN 'user_id'
-  ////@Column('int', { name: 'user_id' })
-  ////userId: number;
-
   //one user can only be connected to one auth
   //@OneToOne(type => AuthEntity, {
   //  nullable: false,

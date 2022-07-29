@@ -1,27 +1,33 @@
 import { Injectable } from '@nestjs/common';
-//import { CreateCocktailDto } from './dto/create-cocktail.dto';
-//import { UpdateCocktailDto } from './dto/update-cocktail.dto';
-//
-//@Injectable()
-//export class CocktailService {
-//  create(createCocktailDto: CreateCocktailDto) {
-//    return 'This action adds a new cocktail';
-//  }
-//
-//  findAll() {
-//    return `This action returns all cocktail`;
-//  }
-//
-//  findOne(id: number) {
-//    return `This action returns a #${id} cocktail`;
-//  }
-//
-//  update(id: number, updateCocktailDto: UpdateCocktailDto) {
-//    return `This action updates a #${id} cocktail`;
-//  }
-//
-//  remove(id: number) {
-//    return `This action removes a #${id} cocktail`;
-//  }
-//}
-//
+import { InjectRepository } from '@nestjs/typeorm';
+import { Cocktail } from './cocktail.entity';
+import { Repository } from 'typeorm';
+import { Observable, from } from 'rxjs';
+
+@Injectable()
+export class CocktailService {
+  constructor (
+    @InjectRepository(Cocktail)
+    private cocktailRepository: Repository<Cocktail>
+  ) {}
+
+  create(cocktail: Cocktail): Observable<Cocktail> {
+    return from(this.cocktailRepository.save(cocktail));
+  }
+
+  findAll(): Observable<Cocktail[]> { 
+    return from(this.cocktailRepository.find());
+  }
+
+  findOne(id: number) {
+    return `This action returns a #${id} cocktail`;
+  }
+
+  update(id: number) {
+    return `This action updates a #${id} cocktail`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} cocktail`;
+  }
+}

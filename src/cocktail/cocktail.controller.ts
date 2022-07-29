@@ -1,42 +1,41 @@
-//import {
-//  Controller,
-//  Get,
-//  Post,
-//  Body,
-//  Patch,
-//  Param,
-//  Delete,
-//} from '@nestjs/common';
-//import { CocktailService } from './cocktail.service';
-//import { Cocktail } from './cocktail.entity';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { CocktailService } from './cocktail.service';
+import { Cocktail } from './cocktail.entity';
+
+@Controller('cocktail')
+export class CocktailController {
+  constructor(private readonly cocktailService: CocktailService) {}
+
+  @Post()
+  create(@Body() cocktail: Cocktail) {
+    return this.cocktailService.create(cocktail);
+  }
+
+  @Get()
+  findAll() {
+    return this.cocktailService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.cocktailService.findOne(+id);
+  }
+
+  //@Patch(':id')
+  //update(@Param('id') id: string, @Body() updateCocktailDto: UpdateCocktailDto) {
+  //  return this.cocktailService.update(+id, updateCocktailDto);
+  //}
 //
-//@Controller('cocktail')
-//export class CocktailController {
-//  constructor(private readonly cocktailService: CocktailService) {}
-//
-//  @Post()
-//  create(@Body() createCocktailDto: CreateCocktailDto) {
-//    return this.cocktailService.create(createCocktailDto);
-//  }
-//
-//  @Get()
-//  findAll() {
-//    return this.cocktailService.findAll();
-//  }
-//
-//  @Get(':id')
-//  findOne(@Param('id') id: string) {
-//    return this.cocktailService.findOne(+id);
-//  }
-//
-//  @Patch(':id')
-//  update(@Param('id') id: string, @Body() updateCocktailDto: UpdateCocktailDto) {
-//    return this.cocktailService.update(+id, updateCocktailDto);
-//  }
-//
-//  @Delete(':id')
-//  remove(@Param('id') id: string) {
-//    return this.cocktailService.remove(+id);
-//  }
-//}
-//
+  //@Delete(':id')
+  //remove(@Param('id') id: string) {
+  //  return this.cocktailService.remove(+id);
+  //}
+}
