@@ -12,6 +12,7 @@ import { CocktailModule } from './cocktail/cocktail.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModuleMongo } from './collection/user/user.module';
 import { MONGO_CONNECTION } from 'mongoconfig';
+import { Neo4jModule } from 'nest-neo4j/dist';
 
 @Module({
   imports: [
@@ -35,6 +36,13 @@ import { MONGO_CONNECTION } from 'mongoconfig';
     CocktailModule,
     MongooseModule.forRoot(MONGO_CONNECTION),
     UserModuleMongo,
+    Neo4jModule.forRoot({
+      scheme: 'neo4j',
+      host: 'localhost',
+      port: 7687,
+      username: 'neo4j',
+      password: 'test',
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
