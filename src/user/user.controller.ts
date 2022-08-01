@@ -14,7 +14,7 @@ import { hasRoles } from 'src/auth/decorators/roles.decorator';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  // Rest Call: POST http://localhost:3000/users'/
+  // Rest Call: POST http://localhost:3000/user/
   @Post('create')
   create(@Body() createdUserDto: CreateUserDto): Observable<UserI> {
     return this.userService.create(createdUserDto);

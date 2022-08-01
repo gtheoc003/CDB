@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as config from '../ormconfig';
+import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config'
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -9,6 +10,8 @@ import { UserEntity } from './user/models/user.entity';
 import { Cocktail } from './cocktail/cocktail.entity';
 import { CocktailModule } from './cocktail/cocktail.module';
 import { AuthModule } from './auth/auth.module';
+import { UserModuleMongo } from './collection/user/user.module';
+import { MONGO_CONNECTION } from 'mongoconfig';
 
 @Module({
   imports: [
@@ -30,6 +33,8 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
     UserModule,
     CocktailModule,
+    MongooseModule.forRoot(MONGO_CONNECTION),
+    UserModuleMongo,
   ],
   controllers: [AppController],
   providers: [AppService],

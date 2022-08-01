@@ -13,13 +13,11 @@ export class Cocktail {
   @ManyToOne((type) => UserEntity, {
     cascade: true,
   })
-  //cocktail: Cocktail[];
+
   @JoinColumn({ name: 'user_id' })
   cocktail: Cocktail;
   //FOREIGN KEY COLUMN 'user_id'
   @Column('int', { name: 'user_id' })
   userId: number;
 
-  //@ManyToOne((type) => UserEntity, (user) => user.cocktail, {})
-  //user: UserEntity;
 }
